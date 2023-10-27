@@ -108,15 +108,17 @@
                 let tdEmail = document.createElement('td')
                 let tdExcluir = document.createElement('td')
                 let tdAlterar = document.createElement('td')
-                
+
                 let btnExcluir = document.createElement('button')
                 btnExcluir.innerHTML = '<i class="bi bi-eraser-fill"></i> Excluir'
-                btnExcluir.classList.add('btn', 'btn-outline-danger')
+                btnExcluir.classList.add('btn', 'btn-outline-danger', 'btn-delete')
+                btnExcluir.value = cli.id;
+                btnExcluir.onclick = () => excluirCliente(cli.id);
 
                 let btnAlterar = document.createElement('button')
                 btnAlterar.innerHTML = '<i class="bi bi-chat-left-text"></i> Alterar'
                 btnAlterar.classList.add('btn', 'btn-success')
-                
+
                 thId.textContent = cli.id
                 tdNome.textContent = cli.nome
                 tdEmail.textContent = cli.email
@@ -137,8 +139,14 @@
             carregarTabela(clientesFiltrado)
         }
 
-        function excluirCliente() {
-
+        function excluirCliente(id) {
+            fetch(url + '/' + id, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+            }).then(value => {
+                alert('Excluído com sucesso.')
+                listarClientes()
+            })
         }
 
     </script>
