@@ -91,13 +91,13 @@
         }
 
         function listarClientes() {
-
             fetch(url).then(resposta => resposta.json())
                 .then(valor => {
                     clientes = valor
                     carregarTabela(clientes)
                 })
         }
+
         function carregarTabela(clientes) {
             let tbody = document.querySelector("tbody")
             tbody.textContent = ""
@@ -106,20 +106,39 @@
                 let thId = document.createElement('th')
                 let tdNome = document.createElement('td')
                 let tdEmail = document.createElement('td')
+                let tdExcluir = document.createElement('td')
+                let tdAlterar = document.createElement('td')
+                
+                let btnExcluir = document.createElement('button')
+                btnExcluir.innerHTML = '<i class="bi bi-eraser-fill"></i> Excluir'
+                btnExcluir.classList.add('btn', 'btn-outline-danger')
 
+                let btnAlterar = document.createElement('button')
+                btnAlterar.innerHTML = '<i class="bi bi-chat-left-text"></i> Alterar'
+                btnAlterar.classList.add('btn', 'btn-success')
+                
                 thId.textContent = cli.id
                 tdNome.textContent = cli.nome
                 tdEmail.textContent = cli.email
+                tdExcluir.appendChild(btnExcluir);
+                tdAlterar.appendChild(btnAlterar);
                 tr.appendChild(thId)
                 tr.appendChild(tdNome)
                 tr.appendChild(tdEmail)
+                tr.appendChild(tdExcluir)
+                tr.appendChild(tdAlterar)
                 tbody.appendChild(tr)
             });
         }
+
         function pesquisar() {
             let textoPesquisa = document.querySelector('#txtPesquisar').value;
             let clientesFiltrado = clientes.filter(cli => cli.nome.includes(textoPesquisa) || cli.email.includes(textoPesquisa))
             carregarTabela(clientesFiltrado)
+        }
+
+        function excluirCliente() {
+
         }
 
     </script>
